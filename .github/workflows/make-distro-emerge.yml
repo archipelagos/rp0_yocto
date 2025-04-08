@@ -5,7 +5,7 @@ on:
     branches: [ main, develop ]
 jobs:
   build:
-    runs-on: [self-hosted, linux, x64, yocto]
+    runs-on: ['self-hosted', 'Linux', 'X64']
     steps:
     - uses: actions/checkout@v2
       with:
