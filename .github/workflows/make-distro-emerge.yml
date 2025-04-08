@@ -12,7 +12,7 @@ jobs:
         submodules: recursive
     - name: Build Yocto Rootfs
       run: |
-        source poky/oe-init-build-env .
+        source yocto/sources/poky/oe-init-build-env build
         bitbake stephendpmurphy-image
     - name: Compress the output images
       run: |
