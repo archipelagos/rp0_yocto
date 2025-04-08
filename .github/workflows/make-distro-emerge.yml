@@ -1,0 +1,39 @@
+name: make-distro-emerge
+run-name: ${{ github.actor }} is generating Yocto based Linux distro
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install -g bats
+      - run: bats -v
+
+
+
+on:
+  push:
+    branches: [ main, develop ]
+jobs:
+  build:
+    runs-on: [self-hosted, linux, x64, yocto]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Build Yocto Rootfs
+      run: |
+        source poky/oe-init-build-env .
+        bitbake stephendpmurphy-image
+    - name: Compress the output images
+      run: |
+        tar -czvf images.tar.gz -C ./tmp/deploy/images/stm32mp1 .
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: images
+        path: images.tar.gz
+        retention-days: 1
