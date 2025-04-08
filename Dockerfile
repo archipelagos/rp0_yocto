@@ -51,7 +51,7 @@ FROM ubuntu:20.04
 LABEL org.opencontainers.image.source="https://github.com/archipelagos/rp0_yocto"
 
 # set the github runner version
-ARG RUNNER_VERSION="2.285.1"
+ARG RUNNER_VERSION="2.323.0"
 
 # do a non interactive build
 ARG DEBIAN_FRONTEND=noninteractive
@@ -106,7 +106,8 @@ ENV LC_ALL en_US.UTF-8
 
 # cd into the user directory, download and unzip the github actions runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
-    && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
+    && curl -o actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
+    && echo "0dbc9bf5a58620fc52cb6cc0448abcca964a8d74b5f39773b7afcad9ab691e19  actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz" | shasum -a 256 -c \
     && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
 # Next we install the additonal dependencies needed by the action-runner, move

@@ -17,9 +17,3 @@ jobs:
     - name: Compress the output images
       run: |
         tar -czvf images.tar.gz -C ./tmp/deploy/images/stm32mp1 .
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: images
-        path: images.tar.gz
-        retention-days: 1
