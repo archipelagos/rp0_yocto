@@ -1,14 +1,20 @@
 #!/bin/bash
 
-# The last bit is the start.sh script. To make the image modular and usable
-# for others, two environment variables will be passed in when spinning up a
-# container - The organization name this Runner will be made available to and
-# a Personal Access Token needed to retrieve a registration token for your
-# org. The PAT used will need repo, workflow and admin:org access rights
-# given.
+ls
 
-REG_TOKEN=
+# INFO: 
+REG_TOKEN_FILE_NAME=/home/docker/token.secret
 
+# INFO: 
+if [ ! -e "${REG_TOKEN_FILE_NAME}" ]; then
+    echo Token file ${REG_TOKEN_FILE_NAME} does not exist.
+    exit 1
+fi
+
+# INFO: 
+REG_TOKEN=$(cat ${REG_TOKEN_FILE_NAME})
+
+# INFO: 
 if [ -z "${REG_TOKEN}" ]; then
     echo Token is empty, cannot proceed.
     exit 1

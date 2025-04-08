@@ -45,4 +45,5 @@ docker \
     -i \
     --rm \
     -v ${SCRIPT_PATH}/launch_github_self_hosted_runner.sh:/home/docker/launch_github_self_hosted_runner.sh \
+    -v ${SCRIPT_PATH}/token.secret:/home/docker/token.secret \
     -t ${TAG_NAME}
