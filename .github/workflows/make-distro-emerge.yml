@@ -1,19 +1,5 @@
 name: make-distro-emerge
 run-name: ${{ github.actor }} is generating Yocto based Linux distro
-on: [push]
-jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: npm install -g bats
-      - run: bats -v
-
-
-
 on:
   push:
     branches: [ main, develop ]
